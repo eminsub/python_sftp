@@ -1,0 +1,47 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Jan 16 14:30:07 2022
+
+@author: Sub
+"""
+
+import pysftp
+import os
+
+host = 'IP_ADDRESS' # IP address
+port = 'PORT_NUMBER' # Port Number
+username = 'USERNAME' 
+password = 'PASSWORD' 
+cnopts = pysftp.CnOpts()
+cnopts.hostkeys = None
+
+local_path_1 = "local_path_1"
+remote_path_1 = "remote_path_1"
+local_path_2 = "local_path_2"
+remote_path_2 = "remote_path_2"
+
+
+try : 
+    with pysftp.Connection(host, port=port, username=username, password=password, cnopts=cnopts) as sftp:
+        # Open sftp session name by sftp
+        sftp.rename('원본 파일명','변경할 파일명') #sftp.rename(remote_src. remote_dst)
+        # /home/mysql/subs_prov/subsftp rename to subsftp_org
+        sftp.put(local_path, remote_path)  # sftp.put(local path, remote path)
+        sftp.chmod(remote_path, 755) #sftp.chmod(remote path, mode)
+        sftp.close() # close sftp session
+        print('Sending '+ local_path_1 + ' OK')
+
+    with pysftp.Connection(host=host, port=port, username=username, password=password, cnopts=cnopts) as sftp2:
+        # Open sftp session name by sftp2
+        sftp_spgw.put(local_path_2, remote_path_2)
+        sftp_spgw.put(local_path_2, remote_path_2)
+        sftp_spgw.close() # close sftp_spgw session
+        print('Sending ' + local_path2 + ' OK')
+
+    os.system('pause')
+    #pause on cmd
+except Exception as err:
+    print(err)
+    # print to error message on cmd
+    os.system('pause')
+    #pause on cmd
