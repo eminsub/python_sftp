@@ -1,0 +1,60 @@
+# -*- coding: utf-8 -*-
+
+
+import paramiko
+import os
+
+def readTxtFile(fileNm):
+    file = open(fileNm+".txt", "r", encoding="UTF-8")
+    
+    data = []
+    while (1):
+        line = file.readline()
+
+        try:
+            escape = line.index('\n')
+        except:
+            escape = len(line)
+        if line:
+            data.append(line[0:escape])
+        else:
+            break
+    file.close()
+
+    return data
+host = 'IP_ADDRESS' # IP address
+port = 'PORT_NUMBER' # Port Number
+username = 'USERNAME' 
+password = 'PASSWORD' 
+
+local_path = "local_Path"
+remote_path = "remote_Path"
+
+try : 
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy)
+    ssh.connect(host, port=port, username=username, password=password)
+    
+    print('ssh connected. \n')
+    
+    # File Upload
+    sftp = ssh.open_sftp()
+    sftp.put(local_path,remote_path)
+    
+    print('sftp upload success. \n')
+    
+    
+    commandLines = readTxtFile("파일명") # 메모장 파일에 적어놨던 명령어 텍스트 읽어옴 .txt 생략
+    print(commandLines)
+
+    stdin, stdout, stderr = ssh.exec_command(";".join(commandLines)) # 명령어 실행
+    lines = stdout.readlines() # 실행한 명령어에 대한 결과 텍스트
+    resultData = ''.join(lines)
+
+    print(resultData) # 결과 확인
+    
+    ssh.close()
+    
+except Exception as err:
+    print(err)
+    os.system('pause')
