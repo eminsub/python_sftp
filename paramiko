@@ -22,13 +22,13 @@ def readTxtFile(fileNm):
     file.close()
 
     return data
-host = 'IP_ADDRESS' # IP address
-port = 'PORT_NUMBER' # Port Number
-username = 'USERNAME' 
-password = 'PASSWORD' 
+host = 'IP_ADDRESS' # #''사이에 IP_ADDRESS 값만 변경
+port = 'PORT_NUMBER' # Port_Number 숫자 입력 ''제거
+username = 'USERNAME' #''사이에 USERNAME 값만 변경
+password = 'PASSWORD' #''사이에 PASSWORD 값만 변경
 
-local_path = "local_Path"
-remote_path = "remote_Path"
+local_path = "local_Path" #전송할 파일 경로 입력 
+remote_path = "remote_Path" #업로드 시킬 경로 입력
 
 try : 
     ssh = paramiko.SSHClient()
