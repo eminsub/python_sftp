@@ -44,7 +44,7 @@ try :
     print('sftp upload success. \n')
     
     
-    commandLines = readTxtFile("파일명") # 메모장 파일에 적어놨던 명령어 텍스트 읽어옴 .txt 생략
+    commandLines = readTxtFile("파일명") # 메모장 파일에 적어놨던 명령어 텍스트 읽어옴 .txt 생략, 실행 파일과 같은 경로에 txt 파일을 위치 한다.
     print(commandLines)
 
     stdin, stdout, stderr = ssh.exec_command(";".join(commandLines)) # 명령어 실행
@@ -54,6 +54,7 @@ try :
     print(resultData) # 결과 확인
     
     ssh.close()
+    os.system('pause')
     
 except Exception as err:
     print(err)
